@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define ll 			long long int
+#define phew 		ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+#define digi(n) 	floor(log10(n))+1
+#define chota(s)    transform(s.begin(), s.end(), s.begin(), :: tolower);
+#define bada(s)     transform(s.begin(), s.end(), s.begin(), :: toupper);
+#define ones(n)		__builtin_popcount(n)
+#define inf         2147483647
+#define pb(n)		push_back(n)
+// string str = to_string(num);  int num = std::atoi(str);
+#define tot_char  256 
+const ll mod = 1000000007;
+const ll mod2 = 4294967296;
+
+ll a[100001];
+vector<int>ar[200001];
+int visit[200001];
+int color[200001];
+
+void dfs(ll node)
+{
+	visited[node] = 1;
+	for(int child : ar[node])
+	{
+		if(!visited[child])
+		{
+			dfs(child);
+		}
+	}
+}
+
+int tests() 
+{ 
+	ll a, b, n, m;
+	cin>>n>>m;
+	for(ll i=1; i<=m; i++)
+	{
+		cin>>a>>b;
+		ar[a].push_back(b);
+		ar[b].push_back(a);
+	}
+	ll count = 0;
+	for(ll i=1; i<=n; i++)
+	{
+		if(!vis[i])
+		{
+			dfs(i);
+			count++;
+		}
+	}
+	cout<<count<<"\n";
+	return 0;
+} 
+int main()
+{
+    phew
+    freopen("input.txt", "r", stdin);
+	freopen("prateek_output.txt", "w", stdout);
+    // if we have multiple TCs
+    // ll t;
+    // cin>>t;
+    // while(t--)
+    // {
+    //     tests();
+    // }
+    // // else
+   	// tests();
+    return 0;
+}
