@@ -13,7 +13,6 @@ using namespace std;
 const ll mod = 1000000007;
 const ll mod2 = 4294967296;
 
-// ll a[100001];
 vector<int>a[10001];
 int visit[10001];
 
