@@ -1,0 +1,105 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define ll 			long long int
+#define phew 		ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+#define digi(n) 	floor(log10(n))+1
+#define chota(s)    transform(s.begin(), s.end(), s.begin(), :: tolower);
+#define bada(s)     transform(s.begin(), s.end(), s.begin(), :: toupper);
+#define ones(n)		__builtin_popcount(n)
+#define inf         100000000;
+#define pb(n)		push_back(n)
+// string str = to_string(num);  int num = std::atoi(str);
+#define tot_char  256 
+const ll mod = 1000000007;
+const ll mod2 = 4294967296;
+
+// ll a[100001];
+vector<int>a[20001];
+int visit[20001];
+int color[20001];
+
+bool dfs(int node, int c)
+{
+	visit[node] = 1;
+	color[node] = c;
+	for(int x : a[node])
+	{
+		if(visit[x] == 0)
+		{
+			bool check = dfs(x, c^1);
+			if(check == false)
+			{
+				return false;
+			}
+		}
+		else if(color[x] == color[node])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+int tests()
+{
+   	int t;
+   	cin>>t;
+   	for(int i=1; i<=t; i++)
+   	{
+   		int n, m;
+   		cin>>n>>m;
+   		for(int i=1; i<=n; i++)
+   		{
+   			a[i].clear();
+   			visit[i] = 0;
+   		}
+   		for(int i=1; i<=m; i++)
+   		{
+   			int aa, b;
+	   		cin>>aa>>b;
+   			a[aa].pb(b);
+   			a[b].pb(aa);
+   		}
+   		bool flag = true;
+   		// bool flag; 
+   		for(int i=1; i<=n; i++)
+   		{
+   			if(visit[i] == 0)
+   			{
+   				bool check = dfs(i, 0);
+   				if(check == false)
+   				{
+   					flag = false;
+   				}
+   				// flag = dfs(i, 0);
+   			}
+   		}
+   		cout<<"Scenario #"<<i<<":"<<"\n";
+   		if(flag == true)
+   		{
+   			cout<<"No suspicious bugs found!"<<"\n";
+   		}
+   		else
+   		{
+   			cout<<"Suspicious bugs found!"<<"\n";
+   		}
+   	}
+	return 0;
+}
+int main()
+{
+    phew
+ //   freopen("input.txt", "r", stdin);
+	// freopen("prateek_output.txt", "w", stdout);
+    // if we have multiple TCs
+    // ll t;
+    // cin>>t;
+    // while(t--)
+    // {
+    //     tests();
+    // }
+    // // else 
+    tests();
+    return 0;
+}
