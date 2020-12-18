@@ -1,0 +1,87 @@
+#include<bits/stdc++.h>
+// #include <boost/algorithm/string.hpp> 
+using namespace std;
+ 
+#define ll 			long long int
+#define phew 		ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+#define digi(n) 	floor(log10(n))+1
+#define chota(s)    transform(s.begin(), s.end(), s.begin(), :: tolower);
+#define bada(s)     transform(s.begin(), s.end(), s.begin(), :: toupper);
+#define ones(n)		__builtin_popcount(n)
+#define inf         2147483647
+#define pb(n)		push_back(n)
+// string str = to_string(num);  int num = std::atoi(str);
+#define tot_char  256 
+const ll mod = 1000000007;
+const ll mod2 = 4294967296;
+
+ll a[100001];
+vector<int>ar[100001];
+int visited[100001];
+int color[100001];
+int size;
+
+void dfs(int node)
+{
+	visited[node] = 1;
+	size++;
+	for(auto x : ar[node])
+	{
+		if(visited[x] == 0)
+		{
+			dfs(x);
+		}
+	}
+}
+int tests() 
+{ 
+	ll n, m, connected=0;
+	cin>>n>>m;
+	for(ll i=1; i<=n; i++)
+	{
+		ar[i].clear();
+		visited[i] = 0;
+	}
+	for(ll i=1; i<=m; i++)
+	{
+		ll g, h;
+		cin>>g>>h;
+		ar[h].pb(g), ar[g].pb(h);
+	}
+	vector<int > sz;
+	ll ans = 1;
+	for(ll i=1; i<=n; i++)
+	{
+		size = 0;
+		if(visited[i] == 0)
+		{
+			dfs(i);
+			connected++;
+			// sz.pb(size);
+			ans = (ans*size)%mod;
+		}
+	}
+	// int ans = 0;
+	// for(ll i=0; i<sz.size(); i++)
+	// {
+	// }
+	// cout<<ans%mod<<"\n";
+	cout<<connected<<" "<<ans<<"\n";
+    return 0;
+} 
+int main()
+{
+    phew
+    freopen("input.txt", "r", stdin);
+	freopen("prateek_output.txt", "w", stdout);
+    // if we have multiple TCs
+    ll t;
+    cin>>t;
+    while(t--)
+    {
+        tests();
+    }
+    // // else
+   	// tests();
+    return 0;
+}
