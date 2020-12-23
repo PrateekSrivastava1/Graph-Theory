@@ -1,0 +1,125 @@
+#include<bits/stdc++.h>
+// #include <boost/algorithm/string.hpp> 
+using namespace std;
+ 
+#define ll 			long long int
+#define phew 		ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+#define digi(n) 	floor(log10(n))+1
+#define chota(s)    transform(s.begin(), s.end(), s.begin(), :: tolower);
+#define bada(s)     transform(s.begin(), s.end(), s.begin(), :: toupper);
+#define ones(n)		__builtin_popcount(n)
+#define inf         2147483647
+#define pb(n)		push_back(n)
+// string str = to_string(num);  int num = std::atoi(str);
+#define tot_char  256 
+const ll mod = 1000000007;
+const ll mod2 = 4294967296;
+
+// ll a[100001];
+vector<int>ar[100001];
+int visited[100001];
+int color[100001];
+int dist[100001];
+int level[100001];
+ll maxd, maxn; 
+
+// <-------------BFS function------------->
+
+void bfs(int source)
+{
+	// <-------------what we are doing------------->
+
+	// In this function we are simply finding SSSP
+	//  and storing number of nodes present at that level from the 
+	// given source in level array.
+
+	// <-------------***************------------->
+
+	queue<int>q;
+	q.push(source);
+	visited[source] = 1;
+	dist[source] = 0;
+	while(!q.empty())
+	{
+		int fr = q.front();
+		q.pop();
+		for(auto x : ar[fr])
+		{
+			if(visited[x] == 0)
+			{
+				dist[x] = dist[fr] + 1;
+				q.push(x);
+				visited[x] = 1;
+
+	// <-------------how we are counting number of nodes present at the given distance from that given source ------------->
+	
+	//we are simply incrementing index value of of that distance 
+	// to count number of nodes present at that level from the given source
+
+				level[dist[x]]++;
+
+	// <-------------yayyy!------------->
+			}
+		}
+	}
+}
+
+// <-------------BFS function end------------->
+
+int tests()
+{
+	// <-------------input section------------->
+
+	int n, m;
+	cin>>n>>m;
+	for(int i=0; i<m; i++)
+	{
+		int c, d;
+		cin>>c>>d;
+		ar[d].pb(c), ar[c].pb(d);
+	}
+
+	// <-------------*****************------------->
+
+	int q;
+	cin>>q;
+	while(q--)
+	{
+		// <-------------we have to clear our visited array and level array for each query------------->
+		
+		for(int i=0; i<=n; i++)
+		{
+			visited[i] = 0, level[i] = 0;
+		}
+
+		// <-------------cleared------------->
+
+		int source, distance;
+		cin>>source>>distance;
+
+		// <-------------BFS function call------------->
+
+		bfs(source);
+
+		// <-------------*****************------------->
+
+		cout<<level[distance]<<"\n";
+	}
+   	return 0;
+}
+int main()
+{
+    phew
+    freopen("input.txt", "r", stdin);
+	freopen("prateek_output.txt", "w", stdout);
+    // if we have multiple TCs
+    // ll t;
+    // cin>>t;
+    // while(t--)
+    // {
+    //     tests();
+    // }
+    // // else
+   	tests();
+    return 0;
+}
