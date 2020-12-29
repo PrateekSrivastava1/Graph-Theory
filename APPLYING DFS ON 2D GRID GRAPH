@@ -1,0 +1,82 @@
+// APPLYING DFS ON 2D GRID GRAPH
+
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define ll 			long long int
+#define phew 		ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+#define digi(n) 	floor(log10(n))+1
+#define chota(s)    transform(s.begin(), s.end(), s.begin(), :: tolower);
+#define bada(s)     transform(s.begin(), s.end(), s.begin(), :: toupper);
+#define ones(n)		__builtin_popcount(n)
+#define inf         2147483647
+#define pb(n)		push_back(n)
+// string str = to_string(num);  int num = std::atoi(str);
+#define tot_char  256 
+const ll mod = 1000000007;
+const ll mod2 = 4294967296;
+
+// ll a[100001];
+vector<int>ar[100001];
+int visited[100001];
+int color[100001];
+int dist[100001];
+int level[100001];
+int in[100001];
+int out[100001];
+set<int>articulation_point;
+vector<int>prime;
+ll maxd, maxn;
+int timer, bachhe; 
+bool visi[1001][1001];
+int n, m;
+
+// order: up->right->down->left
+int dx[] = {-1, 0, 1, 0};
+int dy[] = {0, 1, 0, -1};
+
+bool isvalid(int x, int y)
+{
+	if(x < 1 || x > n || y < 1 || y > m)
+	{
+		return false;
+	}
+	if(visi[x][y] == true)
+	{
+		return false;
+	}
+	return true;
+}
+
+void dfs(int x, int y)
+{
+	visi[x][y] = 1;
+	cout<<x<<" "<<y<<"\n";
+	for(int i=0; i<4; i++)
+	{
+		if(isvalid(x+dx[i], y+dy[i]))
+		{
+			dfs(x+dx[i], y+dy[i]);
+		}
+	}
+}
+
+void tests()
+{
+	cin>>n>>m;
+	dfs(1, 1);
+}
+int main()
+{
+	phew;
+	// freopen("input.txt", "r", stdin);
+	// freopen("p_output.txt", "w", stdout);
+	// ll t;
+	// cin>>t;
+	// while(t--)
+	// {
+	// 	tests();
+	// }
+	tests();
+    return 0;
+}
