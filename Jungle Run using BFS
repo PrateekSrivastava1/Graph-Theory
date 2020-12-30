@@ -1,0 +1,127 @@
+// APPLYING DFS ON 2D GRID GRAPH
+
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define ll 			long long int
+#define phew 		ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+#define digi(n) 	floor(log10(n))+1
+#define chota(s)    transform(s.begin(), s.end(), s.begin(), :: tolower);
+#define bada(s)     transform(s.begin(), s.end(), s.begin(), :: toupper);
+#define ones(n)		__builtin_popcount(n)
+#define inf         2147483647
+#define pb(n)		push_back(n)
+// string str = to_string(num);  int num = std::atoi(str);
+#define tot_char  256 
+const ll mod = 1000000007;
+const ll mod2 = 4294967296;
+
+// ll a[100001];
+vector<int>ar[100001];
+int visited[100001];
+int color[100001];
+int dist[100001];
+int level[100001];
+int in[100001];
+int out[100001];
+set<int>articulation_point;
+vector<int>prime;
+ll maxd, maxn;
+int timer, bachhe; 
+
+// for 2d grid
+bool visi[1001][1001];
+int grid[1001][1001];
+int dis[1001][1001];
+int n, m, connected;
+char c[31][31];
+
+// order: up->right->down->left
+int dx[] = {-1, 0, 1, 0};
+int dy[] = {0, 1, 0, -1};
+// --------******----------- 
+
+bool isvalid(int x, int y)
+{
+	if(x < 1 || x > n || y < 1 || y > m)
+	{
+		return false;
+	}
+	if(visi[x][y] == true || c[x][y] == 'T')
+	{
+		return false;
+	}
+	return true;
+}
+
+void bfs(int x, int y)
+{
+	queue<pair<int, int>>q;
+	visi[x][y] = true;
+	q.push({x, y});
+	dis[x][y] = 0;
+	while(!q.empty())
+	{
+		int frx = q.front().first;
+		int fry = q.front().second;
+		q.pop();
+		for(int i=0; i<4; i++)
+		{
+			if(isvalid(frx+dx[i], fry+dy[i]))
+			{
+				int nx, ny;
+				nx = frx+dx[i];
+				ny = fry+dy[i];
+				q.push({nx, ny});
+				visi[nx][ny] = true;
+				dis[nx][ny] = dis[frx][fry] + 1; 
+			}
+		}
+	}
+	// for(int i=1; i<=n; i++)
+	// {
+	// 	for(int j=1; j<=m; j++)
+	// 	{
+	// 		cout<<dis[i][j]<<" ";
+	// 	}
+	// 	cout<<"\n";
+	// }
+}
+
+void tests()
+{
+	cin>>n;
+	m = n;
+	int stx, sty,  endx, endy;
+	for(int i=1; i<=n; i++)
+	{
+		for(int j=1; j<=m; j++)
+		{
+			cin>>c[i][j];
+			if(c[i][j] == 'S')
+			{
+				stx = i, sty = j;
+			}
+			if(c[i][j] == 'E')
+			{
+				endx = i, endy = j;
+			}
+		}
+	}
+	bfs(stx, sty);
+	cout<<dis[endx][endy]<<"\n";
+}
+int main()
+{
+	phew;
+	freopen("input.txt", "r", stdin);
+	freopen("p_output.txt", "w", stdout);
+	// ll t;
+	// cin>>t;
+	// while(t--)
+	// {
+	// 	tests();
+	// }
+	tests();
+    return 0;
+}
